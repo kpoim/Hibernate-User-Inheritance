@@ -25,7 +25,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
 	http.authorizeRequests()//Restrict access based on HttServletRequest
-		.antMatchers("/").hasAnyRole("USER", "ADMIN", "EMPLOYEE")
+		.antMatchers("/").permitAll()//.hasAnyRole("CLIENT", "ADMIN", "EMPLOYEE")
 		.antMatchers("/newClient").permitAll()
 		.antMatchers("/newAdmin/**").hasRole("ADMIN")
 		.antMatchers("/newEmployee/**").hasRole("ADMIN")

@@ -15,7 +15,7 @@
     </head>
     <body>
         <h2>Hello!</h2><br/>
-        <security:authorize access="hasAnyRole('USER','ADMIN','EMPLOYEE')">
+        <security:authorize access="hasAnyRole('CLIENT','ADMIN','EMPLOYEE')">
             <p>
                 User: <security:authentication property="principal.username"/>
                 <br/>
