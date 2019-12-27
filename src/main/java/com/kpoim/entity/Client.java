@@ -1,11 +1,9 @@
 package com.kpoim.entity;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 
@@ -19,13 +17,13 @@ public class Client extends User implements Serializable {
   public Client() {
   }
 
-  public Client(Integer clientId, String username, String password, List<Role> roles) {
-	super(username, password, roles);
+  public Client(Integer clientId, String username, String password, Role role) {
+	super(username, password, role);
 	this.clientId = clientId;
   }
 
-  public Client(Integer clientId, Integer id, String username, String password, List<Role> roles) {
-	super(id, username, password, roles);
+  public Client(Integer clientId, Integer id, String username, String password, Role role) {
+	super(id, username, password, role);
 	this.clientId = clientId;
   }
   

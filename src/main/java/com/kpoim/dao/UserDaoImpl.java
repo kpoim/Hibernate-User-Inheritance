@@ -9,11 +9,6 @@ import org.springframework.stereotype.Repository;
 public class UserDaoImpl extends SuperDao implements  UserDao {
 
   @Override
-  public void save(User user) {
-	getSession().save(user);
-  }
-
-  @Override
   public User findByUsername(String username) {
 	Query q = getSession().createQuery("SELECT u FROM User u WHERE u.username = : un");
 	q.setParameter("un", username);

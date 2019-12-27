@@ -11,7 +11,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,19 +20,10 @@ public class UserServiceImpl implements UserService {
   
   @Autowired
   UserDao dao;
-  
-  @Autowired
-  private BCryptPasswordEncoder passwordEncoder;
 
   @Override
   public User findByUsernme(String username) {
 	return dao.findByUsername(username);
-  }
-
-  @Override
-  public void save(User user) {
-	user.setPassword(passwordEncoder.encode(user.getPassword()));
-	dao.save(user);
   }
 
   @Override
@@ -42,16 +32,13 @@ public class UserServiceImpl implements UserService {
 	if(user == null){
 	  throw new UsernameNotFoundException("Invalid Username");
 	}
-	return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getGrantedAuthorities(user.getRoles()));
+	return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getGrantedAuthorities(user.getRole()));
   }
   
   
-  private Collection<? extends GrantedAuthority> getGrantedAuthorities(List<Role> roles){
+  private Collection<? extends GrantedAuthority> getGrantedAuthorities(Role role){
 	List<GrantedAuthority> authorities = new ArrayList<>();
-	for(Role r:roles){
-	  SimpleGrantedAuthority authority = new SimpleGrantedAuthority(r.getRname());
-	  authorities.add(authority);
-	}
+	authorities.add(new SimpleGrantedAuthority(role.getRname()));
 	return authorities;
   }
 }

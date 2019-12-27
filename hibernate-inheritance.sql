@@ -1,13 +1,27 @@
 CREATE SCHEMA hibernate_inheritance DEFAULT CHAR SET utf8mb4;
 USE hibernate_inheritance;
+-- DROP SCHEMA hibernate_inheritance;
+
+CREATE TABLE role(
+    rid INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    rname VARCHAR(30),
+    UNIQUE(rname)
+);
+
+INSERT INTO role(rname) VALUES
+('ROLE_CLIENT'),
+('ROLE_EMPLOYEE'),
+('ROLE_ADMIN');
 
 CREATE TABLE user (
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50),
-    password VARCHAR(68)
+    password VARCHAR(68),
+    rid INT UNSIGNED,
+    CONSTRAINT roleFK FOREIGN KEY (rid) REFERENCES role(rid)
 );
-INSERT INTO user(username, password) VALUES
-('admin', '$2y$12$IsEt/FjyQw3f9JSQZueodOFlbhviHMh9rIgbCycLXe3.5NUbcyf8W');
+INSERT INTO user(username, password, rid) VALUES
+('admin', '$2y$12$IsEt/FjyQw3f9JSQZueodOFlbhviHMh9rIgbCycLXe3.5NUbcyf8W', 3);
 # above password == 1234
 
 CREATE TABLE client (
@@ -31,26 +45,15 @@ CREATE TABLE employee (
     empphone VARCHAR(20)
 );
 
-CREATE TABLE role(
-    rid INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    rname VARCHAR(30),
-    UNIQUE(rname)
-);
-
-INSERT INTO role(rname) VALUES
-('ROLE_CLIENT'),
-('ROLE_EMPLOYEE'),
-('ROLE_ADMIN');
-
-CREATE TABLE user_role(
-    uid INT UNSIGNED,
-    rid INT UNSIGNED,
-    PRIMARY KEY(uid, rid),
-    CONSTRAINT userrolefk1 FOREIGN KEY (uid) REFERENCES user(id),
-    CONSTRAINT userrolefk2 FOREIGN KEY (rid) REFERENCES role(rid)
-);
-INSERT INTO user_role VALUES
-(1, 3);
+-- CREATE TABLE user_role(
+--     uid INT UNSIGNED,
+--     rid INT UNSIGNED,
+--     PRIMARY KEY(uid, rid),
+--     CONSTRAINT userrolefk1 FOREIGN KEY (uid) REFERENCES user(id),
+--     CONSTRAINT userrolefk2 FOREIGN KEY (rid) REFERENCES role(rid)
+-- );
+-- INSERT INTO user_role VALUES
+-- (1, 3);
 
 -- SELECT * FROM user;
 -- SELECT * FROM client;

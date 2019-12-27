@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,6 +15,13 @@
     </head>
     <body>
         <h2>Hello!</h2><br/>
+        <security:authorize access="hasAnyRole('USER','ADMIN','EMPLOYEE')">
+            <p>
+                User: <security:authentication property="principal.username"/>
+                <br/>
+                Role(s): <security:authentication property="principal.authorities"/>
+            </p>
+        </security:authorize>
         <c:if test="${message != null}">
             <p>
                 ${message}

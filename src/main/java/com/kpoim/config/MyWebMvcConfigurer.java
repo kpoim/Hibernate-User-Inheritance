@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.kpoim.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,25 +13,25 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.kpoim")
-public class MyWebMvcConfigurer implements WebMvcConfigurer{
-  
+public class MyWebMvcConfigurer implements WebMvcConfigurer {
+
   @Autowired
   private StringToRoleConverter stringToRoleConverter;
 
-    @Override
-    public void configureViewResolvers(ViewResolverRegistry registry) {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setPrefix("/WEB-INF/view/");
-        viewResolver.setSuffix(".jsp");
-        registry.viewResolver(viewResolver);
-    }
+  @Override
+  public void configureViewResolvers(ViewResolverRegistry registry) {
+	InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+	viewResolver.setPrefix("/WEB-INF/view/");
+	viewResolver.setSuffix(".jsp");
+	registry.viewResolver(viewResolver);
+  }
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        String [] paths = {"/static/**"};
-        String [] locations = {"/static/"};
-        registry.addResourceHandler(paths).addResourceLocations(locations);
-    }
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+	String[] paths = {"/static/**"};
+	String[] locations = {"/static/"};
+	registry.addResourceHandler(paths).addResourceLocations(locations);
+  }
 
   @Override
   public void addFormatters(FormatterRegistry registry) {

@@ -14,8 +14,6 @@
             first name: <form:input path="firstName" /><br/>
             last name: <form:input path="lastName" /><br/>
             phone number: <form:input path="phone" /><br/>
-            <form:select path="roles" items="${roles}" multiple="true" itemValue="rid" itemLabel="rname">
-            </form:select><br/>
             <input type="submit" value='submit'/>
         </form:form>
     </body>

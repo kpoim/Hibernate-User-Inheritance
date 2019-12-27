@@ -1,7 +1,6 @@
 package com.kpoim.entity;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,15 +22,15 @@ public class Admin extends User implements Serializable {
   public Admin() {
   }
 
-  public Admin(String firstName, String lastName, String phone, String username, String password, List<Role> roles) {
-	super(username, password, roles);
+  public Admin(String firstName, String lastName, String phone, String username, String password, Role role) {
+	super(username, password, role);
 	this.firstName = firstName;
 	this.lastName = lastName;
 	this.phone = phone;
   }
 
-  public Admin(String firstName, String lastName, String phone, Integer id, String username, String password, List<Role> roles) {
-	super(id, username, password, roles);
+  public Admin(String firstName, String lastName, String phone, Integer id, String username, String password, Role role) {
+	super(id, username, password, role);
 	this.firstName = firstName;
 	this.lastName = lastName;
 	this.phone = phone;

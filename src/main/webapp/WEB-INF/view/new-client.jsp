@@ -12,8 +12,6 @@
             username: <form:input path="username"/><br/>
             password: <form:password path="password"/><br/>
             client id: <form:input path="clientId" type="number"/><br/>
-            <form:select path="roles" items="${roles}" multiple="true" itemValue="rid" itemLabel="rname">
-            </form:select><br/>
             <input type="submit" value='submit'/>
         </form:form>
     </body>

@@ -1,9 +1,7 @@
 package com.kpoim.entity;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,9 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -30,28 +26,25 @@ public class User implements Serializable {
   private String username;
   
   private String password;
-
-  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinTable(name = "user_role",
-	  joinColumns = @JoinColumn(name = "uid"),
-	  inverseJoinColumns = @JoinColumn(name = "rid")
-	  )
-  List<Role> roles;
+  
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "rid")
+  private Role role;
 
   public User() {
   }
 
-  public User(String username, String password, List<Role> roles) {
+  public User(String username, String password, Role role) {
 	this.username = username;
 	this.password = password;
-	this.roles = roles;
+	this.role = role;
   }
 
-  public User(Integer id, String username, String password, List<Role> roles) {
+  public User(Integer id, String username, String password, Role role) {
 	this.id = id;
 	this.username = username;
 	this.password = password;
-	this.roles = roles;
+	this.role = role;
   }
 
   public Integer getId() {
@@ -78,12 +71,12 @@ public class User implements Serializable {
 	this.password = password;
   }
 
-  public List<Role> getRoles() {
-	return roles;
+  public Role getRole() {
+	return role;
   }
 
-  public void setRoles(List<Role> roles) {
-	this.roles = roles;
+  public void setRole(Role role) {
+	this.role = role;
   }
 
   @Override
@@ -92,7 +85,7 @@ public class User implements Serializable {
 	hash = 29 * hash + Objects.hashCode(this.id);
 	hash = 29 * hash + Objects.hashCode(this.username);
 	hash = 29 * hash + Objects.hashCode(this.password);
-	hash = 29 * hash + Objects.hashCode(this.roles);
+	hash = 29 * hash + Objects.hashCode(this.role);
 	return hash;
   }
 
@@ -117,7 +110,7 @@ public class User implements Serializable {
 	if (!Objects.equals(this.id, other.id)) {
 	  return false;
 	}
-	if (!Objects.equals(this.roles, other.roles)) {
+	if (!Objects.equals(this.role, other.role)) {
 	  return false;
 	}
 	return true;
@@ -125,7 +118,7 @@ public class User implements Serializable {
 
   @Override
   public String toString() {
-	return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", roles=" + roles + '}';
+	return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", role=" + role + '}';
   }
 
 }

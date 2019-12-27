@@ -7,6 +7,5 @@ public interface UserService extends UserDetailsService {
 
   public User findByUsernme(String username);
 
-  public void save(User user);
   
 }
